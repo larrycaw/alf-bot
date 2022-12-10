@@ -6,7 +6,7 @@
   "keywords": [],
   "scripts": {
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +14,7 @@
     "@discordjs/rest": "^1.4.0",
     "discord-api-types": "^0.37.21",
     "discord.js": "^14.7.1",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "mocha": "^10.1.0"
   }
 }
