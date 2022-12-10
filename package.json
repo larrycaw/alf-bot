@@ -4,17 +4,12 @@
   "description": "",
   "main": "index.js",
   "keywords": [],
-  "scripts": {
-    "start": "node index.js",
-    "test": "mocha"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^1.4.0",
     "discord-api-types": "^0.37.21",
     "discord.js": "^14.7.1",
-    "dotenv": "^16.0.3",
-    "mocha": "^10.1.0"
+    "dotenv": "^16.0.3"
   }
 }
