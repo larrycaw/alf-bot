@@ -7,11 +7,11 @@ const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 });
 
-client.commands = new Collection();
+client.commands = new Discord.Collection();
 
-const commandFiles = readdirSync("./src/commands").filter((file) =>
-    file.endsWith(".js")
-);
+const commandFiles = fs
+    .readdirSync("./src/commands")
+    .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
     const command = require(`./src/commands/${file}`);
