@@ -1,21 +1,21 @@
-require("dotenv").config();
-const fs = require("fs");
-const Discord = require("discord.js");
-const { Client, GatewayIntentBits } = require("discord.js");
+import Discord, { Client, GatewayIntentBits } from "discord.js";
+import { config } from "dotenv";
+import fs from "fs";
+
+config();
 
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
 });
 
-client.commands = new Discord.Collection();
-
+const commands = new Discord.Collection();
 const commandFiles = fs
     .readdirSync("./src/commands")
     .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
     const command = require(`./src/commands/${file}`);
-    client.commands.set(command.data.name, command);
+    commands.set(command.data.name, command);
 }
 
 client.once("ready", () => {
@@ -25,7 +25,7 @@ client.once("ready", () => {
 client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
 
-    const command = client.commands.get(interaction.commandName);
+    const command = commands.get(interaction.commandName);
 
     if (!command) return;
 

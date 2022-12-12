@@ -1,11 +1,11 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { ActionRowBuilder, ButtonBuilder } = require("discord.js");
+import { SlashCommandBuilder } from "@discordjs/builders";
+import { ActionRowBuilder, ButtonBuilder } from "discord.js";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("rock-paper-scissors")
         .setDescription("Play Rock Paper Scissors with the bot!"),
-    async execute(interaction) {
+    async execute(interaction: any) {
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId("rock")
@@ -26,22 +26,23 @@ module.exports = {
             components: [row],
         });
 
-        const filter = (i) =>
-            i.customId === "rock" ||
-            i.customId === "paper" ||
-            i.customId === "scissors";
+        const filter = (interaction: any) =>
+            interaction.customId === "rock" ||
+            interaction.customId === "paper" ||
+            interaction.customId === "scissors";
         const collector = interaction.channel.createMessageComponentCollector({
             filter,
             time: 15000,
         });
 
         collector.on("collect", async (i) => {
-            let botChoice = Math.floor(Math.random() * 3);
+            let botChoiceNumber = Math.floor(Math.random() * 3);
+            let botChoice = "";
             let result = "";
 
-            if (botChoice === 0) botChoice = "rock";
-            if (botChoice === 1) botChoice = "paper";
-            if (botChoice === 2) botChoice = "scissors";
+            if (botChoiceNumber === 0) botChoice = "rock";
+            if (botChoiceNumber === 1) botChoice = "paper";
+            if (botChoiceNumber === 2) botChoice = "scissors";
 
             if (i.customId === botChoice) result = "It's a tie!";
 
@@ -66,7 +67,7 @@ module.exports = {
             });
         });
 
-        collector.on("end", (collected) => {
+        collector.on("end", (collecte) => {
             if (collected.size === 0)
                 interaction.editReply({
                     content: "You didnt choose anything in time!",

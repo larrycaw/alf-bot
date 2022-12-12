@@ -1,11 +1,14 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
+import {
+    SlashCommandBuilder,
+    SlashCommandIntegerOption,
+} from "@discordjs/builders";
 
 const valueOption = "value";
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("fizzbuzz")
-        .addIntegerOption((option) =>
+        .addIntegerOption((option: SlashCommandIntegerOption) =>
             option
                 .setName(valueOption)
                 .setDescription("The value to fizz")
@@ -13,24 +16,23 @@ module.exports = {
         )
         .setDescription("Fizzer buzzen"),
 
-    async execute(interaction) {
+    async execute(interaction: any) {
         const value = interaction.options.getInteger(valueOption);
         const fizzedAndBuzzed = fizzBuzz(value);
         await interaction.reply(fizzedAndBuzzed);
     },
 };
 
-function fizzBuzz(value) {
-    const v = Number(value);
-    if (v % 15 === 0) {
+function fizzBuzz(value: number): string {
+    if (value % 15 === 0) {
         return "FizzBuzz";
     }
-    if (v % 3 === 0) {
+    if (value % 3 === 0) {
         return "Fizz";
     }
-    if (v % 5 === 0) {
+    if (value % 5 === 0) {
         return "Buzz";
     }
 
-    return v.toString();
+    return value.toString();
 }
