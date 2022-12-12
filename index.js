@@ -14,7 +14,7 @@ const commandFiles = fs
     .filter((file) => file.endsWith(".js") || file.endsWith(".ts"));
 
 for (const file of commandFiles) {
-    const command = require(`./src/commands/${file}`);
+    const command = await import(`./src/commands/${file}`);
     commands.set(command.data.name, command);
 }
 
