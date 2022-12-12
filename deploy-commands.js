@@ -6,8 +6,8 @@ import { readdirSync } from "fs";
 config();
 
 const commands = [];
-const commandFiles = readdirSync("./src/commands").filter((file) =>
-    file.endsWith(".js")
+const commandFiles = readdirSync("./src/commands").filter(
+    (file) => file.endsWith(".js") || file.endsWith(".ts")
 );
 
 for (const file of commandFiles) {
