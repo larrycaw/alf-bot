@@ -1,24 +1,28 @@
-require('dotenv').config();
-const fs = require('fs');
-const Discord = require('discord.js');
-const { Client, GatewayIntentBits } = require('discord.js');
+require("dotenv").config();
+const fs = require("fs");
+const Discord = require("discord.js");
+const { Client, GatewayIntentBits } = require("discord.js");
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages] });
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages],
+});
 
 client.commands = new Discord.Collection();
 
-const commandFiles = fs.readdirSync('./src/commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs
+    .readdirSync("./src/commands")
+    .filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
     const command = require(`./src/commands/${file}`);
     client.commands.set(command.data.name, command);
 }
 
-client.once('ready', () => {
-    console.log('Ready!');
+client.once("ready", () => {
+    console.log("Ready!");
 });
 
-client.on('interactionCreate', async interaction => {
+client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
 
     const command = client.commands.get(interaction.commandName);
@@ -29,7 +33,10 @@ client.on('interactionCreate', async interaction => {
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
-        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+        await interaction.reply({
+            content: "There was an error while executing this command!",
+            ephemeral: true,
+        });
     }
 });
 
