@@ -11,7 +11,7 @@ const commandFiles = readdirSync("./src/commands").filter(
 );
 
 for (const file of commandFiles) {
-    const command = require(`./src/commands/${file}`);
+    const command = await import(`./src/commands/${file}`);
     commands.push(command.data.toJSON());
 }
 
