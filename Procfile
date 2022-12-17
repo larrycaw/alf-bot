@@ -1,2 +1,3 @@
-worker: node index.js
-deploy-commands: node deploy-commands.js
+deploy: npm run deploy-prod
+build: npm run build
+starter: npm run start
