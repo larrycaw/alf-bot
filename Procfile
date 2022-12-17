@@ -1,2 +1,3 @@
-worker: ts-node-esm index.js
-deploy-commands: ts-node-esm deploy-commands.js
+deploy: npm run deploy-prod
+build: npm run build
+starter: npm run start

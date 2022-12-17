@@ -1,11 +1,12 @@
 import {
     SlashCommandBuilder,
     SlashCommandIntegerOption,
-} from "@discordjs/builders";
+} from "discord.js";
+import { command } from '../../utils';
 
 const valueOption = "value";
 
-export const data = new SlashCommandBuilder()
+const meta = new SlashCommandBuilder()
     .setName("fizzbuzz")
     .addIntegerOption((option: SlashCommandIntegerOption) =>
         option
@@ -15,11 +16,11 @@ export const data = new SlashCommandBuilder()
     )
     .setDescription("Fizzer buzzen");
 
-export default async function execute(interaction: any) {
+export default command(meta, ({ interaction }) => {
     const value = interaction.options.getInteger(valueOption);
-    const fizzedAndBuzzed = fizzBuzz(value);
-    await interaction.reply(fizzedAndBuzzed);
-}
+    const fizzedAndBuzzed = fizzBuzz(value ?? 0);
+    interaction.reply(fizzedAndBuzzed);
+});
 
 function fizzBuzz(value: number): string {
     if (value % 15 === 0) {

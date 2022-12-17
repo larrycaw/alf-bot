@@ -1,11 +1,12 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
-import { ActionRowBuilder, ButtonBuilder } from "discord.js";
+import { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder } from "discord.js";
+import { command } from '../../utils';
 
-export const data = new SlashCommandBuilder()
-    .setName("rock-paper-scissors")
+export const meta = new SlashCommandBuilder()
+    .setName("rockpaperscissors")
     .setDescription("Play Rock Paper Scissors with the bot!");
-export async function execute(interaction: any) {
-    const row = new ActionRowBuilder().addComponents(
+
+export default command(meta, ({ interaction }) => {
+    const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
         new ButtonBuilder().setCustomId("rock").setLabel("Rock").setStyle(1),
         new ButtonBuilder().setCustomId("paper").setLabel("Paper").setStyle(1),
         new ButtonBuilder()
@@ -14,21 +15,23 @@ export async function execute(interaction: any) {
             .setStyle(1)
     );
 
-    await interaction.reply({
+    interaction.reply({
         content: "Choose your weapon!",
-        components: [row],
+        components: [
+            row,
+        ],
     });
 
     const filter = (interaction: any) =>
         interaction.customId === "rock" ||
         interaction.customId === "paper" ||
         interaction.customId === "scissors";
-    const collector = interaction.channel.createMessageComponentCollector({
+    const collector = interaction.channel?.createMessageComponentCollector({
         filter,
         time: 15000,
     });
 
-    collector.on("collect", async (i: any) => {
+    collector?.on("collect", async (i: any) => {
         let botChoiceNumber = Math.floor(Math.random() * 3);
         let botChoice = "";
         let result = "";
@@ -59,11 +62,11 @@ export async function execute(interaction: any) {
         });
     });
 
-    collector.on("end", (collected: any) => {
+    collector?.on("end", (collected: any) => {
         if (collected.size === 0)
             interaction.editReply({
                 content: "You didnt choose anything in time!",
                 components: [],
             });
     });
-}
+});
