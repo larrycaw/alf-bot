@@ -1,3 +1,1 @@
-deploy: npm run deploy-prod
-build: npm run build
-starter: npm run start
+worker: npm run deploy-prod & npm run build & npm run start
