@@ -1,1 +1,1 @@
-worker: sh- c "npm run deploy-prod && npm run build && npm run start"
+worker: npm run deploy-prod & npm run build & npm run start
