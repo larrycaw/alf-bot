@@ -27,14 +27,21 @@ guildId=
 ```
 
 ### Deploy the commands
-Once you have your environment variables you are now ready to run your bot.
-First you want to deploy the commands to the given server/guild. To do this all you need to do is run deploy-commands.js
+Once you have your environment variables you are now ready to deploy your commands to the bot.
+All you need to do is run
 ```
-node deploy-commands.js
+npm run deploy
+```
+
+### Building the project
+As we are using typescript in this project we need to build the project into javascript files.
+We have a command for this as well.
+```
+npm run build
 ```
 
 ### You should be good to go!
 Launch the bot by running:
 ```
-node index.js
+npm run start
 ```
